@@ -62,14 +62,15 @@ function doPost(e) {
     var name = String(data.name || '').trim();
     var token = String(data.guestToken || '').trim();
     if (String(data.action || '') === 'register') {
-      if (!/^[A-Za-z0-9_-]{12,100}$/.test(token) || !name || name.length > 120) throw new Error('Invalid registration');
-      if (/^[=+@\-]/.test(name)) name = "'" + name;
+      if (!/^[A-Za-z0-9_-]{12,100}$/.test(token) || name.length > 120) throw new Error('Invalid registration');
+      if (name && /^[=+@\-]/.test(name)) name = "'" + name;
       var registerLock = LockService.getScriptLock();
       registerLock.waitLock(10000);
       try {
         var registerSheet = guestSheet();
         var existingRow = findGuestRow(registerSheet,token);
         if (existingRow) {
+          if (name && !String(registerSheet.getRange(existingRow,2).getValue() || '').trim()) registerSheet.getRange(existingRow,2).setValue(name);
           var existing = registerSheet.getRange(existingRow,1,1,7).getValues()[0];
           return jsonOutput({ok:true,guest:{name:String(existing[1] || ''),attendance:['yes','no'].indexOf(String(existing[4] || '')) >= 0 ? String(existing[4]) : null,guests:existing[5] === '' ? null : Number(existing[5])}});
         }
