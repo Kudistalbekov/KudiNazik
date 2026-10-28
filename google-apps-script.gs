@@ -62,8 +62,8 @@ function doPost(e) {
     var name = String(data.name || '').trim();
     var token = String(data.guestToken || '').trim();
     if (String(data.action || '') === 'register') {
-      if (!/^[A-Za-z0-9_-]{12,100}$/.test(token) || name.length > 120) throw new Error('Invalid registration');
-      if (name && /^[=+@\-]/.test(name)) name = "'" + name;
+      if (!/^[A-Za-z0-9_-]{12,100}$/.test(token) || !name || name.length > 120) throw new Error('Invalid registration');
+      if (/^[=+@\-]/.test(name)) name = "'" + name;
       var registerLock = LockService.getScriptLock();
       registerLock.waitLock(10000);
       try {

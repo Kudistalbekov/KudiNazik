@@ -30,7 +30,7 @@ export async function PUT(request: Request) {
   const data = body as Record<string, unknown>;
   const guestToken = typeof data.guestToken === 'string' ? data.guestToken.trim() : '';
   const name = typeof data.name === 'string' ? data.name.trim() : '';
-  if (!TOKEN_PATTERN.test(guestToken) || name.length > 120) return NextResponse.json({error:'Invalid guest data'}, {status:400});
+  if (!TOKEN_PATTERN.test(guestToken) || !name || name.length > 120) return NextResponse.json({error:'Invalid guest data'}, {status:400});
   const webhook = getWebhook();
   if (!webhook) return NextResponse.json({error:'RSVP is not configured'}, {status:503});
   try {
