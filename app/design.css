@@ -59,3 +59,4 @@ html.invitation-locked,body.invitation-locked{height:100%;overflow:hidden;oversc
 @keyframes openButtonGlow{0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.1),0 10px 30px rgba(0,0,0,.2),0 0 18px rgba(218,185,127,.2)}50%{box-shadow:0 0 0 5px rgba(218,185,127,.1),0 12px 34px rgba(0,0,0,.24),0 0 38px rgba(229,200,145,.48)}}
 @media(prefers-reduced-motion:reduce){.opening-frame button{animation:none}}
 @media(max-width:600px){.opening-frame button{min-width:220px;padding:17px 24px}}
+.welcome .greeting-prefix,.welcome .greeting-name{display:block}.welcome .greeting-prefix{font-size:.62em;letter-spacing:.03em;color:var(--muted);margin-bottom:7px}.welcome .greeting-name{color:var(--ink)}
